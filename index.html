@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONJP Order Taking & Managing Guideline</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Calm Harmony (Light neutrals with a muted blue accent) -->
+    <!-- Application Structure Plan: A role-based tabbed navigation (All, Backstage, Sales, Special Cases) is used to allow users to quickly filter and view only the rules relevant to their role. This task-oriented design reduces cognitive load compared to a linear document. Special cases are handled with an accordion to keep the interface clean. -->
+    <!-- Visualization & Content Choices: Report Info -> Rules & Processes -> Goal -> Organize & Inform -> Viz/Presentation Method -> Styled cards for rules, numbered lists/steps for processes, accordions for special cases. -> Interaction -> Tab clicks to switch views, accordion clicks to expand/collapse details. -> Justification -> No data to visualize, so the focus is on clear information architecture and layout. This is more effective than forcing charts. -> Library/Method -> Vanilla JS for interactions, Tailwind CSS for styling. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, sans-serif;
+        }
+        .nav-item {
+            transition: all 0.3s ease;
+        }
+        .nav-item.active {
+            border-color: #3b82f6;
+            color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-800">ONJP Order Taking & Managing Guideline</h1>
+            <p class="text-slate-600 mt-2">担当者や状況に応じて、必要なルールを素早く確認できます。</p>
+        </header>
+
+        <nav class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 border-b border-slate-200 pb-4">
+            <button data-target="section-all" class="nav-item active font-semibold py-2 px-4 border-b-2 border-transparent hover:border-blue-500 hover:text-blue-500 rounded-md">
+                全員共通
+            </button>
+            <button data-target="section-backstage" class="nav-item font-semibold py-2 px-4 border-b-2 border-transparent hover:border-blue-500 hover:text-blue-500 rounded-md">
+                Backstage向け
+            </button>
+            <button data-target="section-sales" class="nav-item font-semibold py-2 px-4 border-b-2 border-transparent hover:border-blue-500 hover:text-blue-500 rounded-md">
+                Sales向け
+            </button>
+            <button data-target="section-special" class="nav-item font-semibold py-2 px-4 border-b-2 border-transparent hover:border-blue-500 hover:text-blue-500 rounded-md">
+                その他
+            </button>
+        </nav>
+
+        <main id="main-content">
+            <!-- Section: 全員共通 -->
+            <section id="section-all" class="content-section active">
+                 <div class="p-4 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg mb-6">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">全員共通の基本原則</h2>
+                    <p class="text-slate-600">Backstage、Salesいずれの担当者にも適用される基本的なルールです。オーダー入力の際はまずこちらをご確認ください。</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-lg mb-2 text-slate-700">新作/継続の分割</h3>
+                        <p>「新作」と「継続品」でオーダーを分けて入力してください。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-lg mb-2 text-slate-700">カテゴリ別の分割</h3>
+                        <p>基本的に「Shoes」と「Apparel/Accessory」の2つに分けてください。管理上必要な場合（検品業者やバイヤーが異なる等）は、「Apparel」と「Accessory」を分け、3カテゴリでの入力も可能です。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-lg mb-2 text-slate-700">フォロー分</h3>
+                        <p>フォロー（追加）分のオーダーも、新作の場合は別オーダーとしてください。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-lg mb-2 text-slate-700">キャリーオーバー製品</h3>
+                        <p>シーズンを越して販売する製品の納品は、<strong class="text-blue-600">15日以降</strong>の日付で設定してください。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-lg mb-2 text-slate-700">チャーター便不可</h3>
+                        <p>チャーター便で納品できないアカウントは、1日の出荷上限を<strong class="text-blue-600">450点以内</strong>にしてください。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-lg mb-2 text-slate-700">1オーダーの最大数量</h3>
+                        <p><strong class="text-blue-600">3,000点以内</strong>が理想です。（10tチャーター1台分が目安）</p>
+                        <p class="text-sm text-slate-500 mt-2">※振り分け前(Hold order)は対象外です。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Backstage向け -->
+            <section id="section-backstage" class="content-section">
+                <div class="p-4 bg-green-50 border-l-4 border-green-400 rounded-r-lg mb-6">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">Backstage向け入力ルール</h2>
+                    <p class="text-slate-600">お客様がシステムへ入力する際のルールです。</p>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-lg mb-2 text-slate-700">日付の入力</h3>
+                        <p>納品希望日はBackstage上の依頼日の前日に設定してください。</p>
+                        <div class="mt-4 p-4 bg-slate-100 border border-slate-300 rounded-lg">
+                            <p class="text-sm font-semibold text-slate-600 mb-3 text-center">入力例</p>
+                            <div class="max-w-xs mx-auto space-y-3">
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="block text-xs text-slate-500 mb-1">注文のタイプ</label>
+                                        <div class="w-full p-2 bg-gray-50 border border-slate-300 rounded-md text-sm">プレオーダー <span class="float-right">▼</span></div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs text-slate-500 mb-1">ご依頼日</label>
+                                        <div class="w-full p-2 bg-gray-50 border border-slate-300 rounded-md flex justify-between items-center text-sm">
+                                            <span>2026/07/17</span>
+                                            <span>📅</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-center text-red-600 font-bold pt-2">*2026/07/16に納品されます。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-lg mb-2 text-slate-700">納品日の指定</h3>
+                        <p>受け取り不可の日付や、販売の妨げになる日付は避けてください。</p>
+                        <p class="text-sm text-slate-500 mt-2">※必須対応が難しいことは想定済みですが、可能な限り調整をお願いします。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Sales向け -->
+            <section id="section-sales" class="content-section">
+                <div class="p-4 bg-purple-50 border-l-4 border-purple-400 rounded-r-lg mb-6">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">Sales向け設定・入力ルール</h2>
+                    <p class="text-slate-600">Sales担当者がシステム設定や入力を行う際のルールです。</p>
+                </div>
+                <div class="space-y-6">
+                     <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-lg mb-2 text-slate-700">RRD (希望納品日) の設定</h3>
+                        <div class="mt-4 space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-purple-800">① 通常オーダー</h4>
+                                <p class="text-slate-600 pl-4">実際の納品希望日を設定します。</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-purple-800">② シーズン跨ぎの可能性があるオーダー</h4>
+                                <p class="text-slate-600 pl-4">RRDは<strong class="font-bold text-red-600">「発売日」</strong>に設定します。</p>
+                                <p class="text-sm text-slate-500 mt-2 pl-4">※AS TeamにてCSD（出荷可能日）を延長調整します。生産や価格への影響を避けるため、RRDは変更しないでください。倉庫へは別途、実際の納品日を連絡します。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-lg mb-2 text-slate-700">Reference項目の入力</h3>
+                        <p class="text-sm text-slate-500 mb-2">(最大60文字)</p>
+                        <p class="text-slate-600">以下の要素を参考に、管理しやすいように入力してください。</p>
+                        <ul class="list-disc list-inside mt-2 text-slate-600">
+                            <li>New or Follow</li>
+                            <li>発売日（新製品の場合）</li>
+                            <li>シーズン</li>
+                            <li>納品先（未定の場合は場所）</li>
+                            <li>カテゴリ (Shoes / App / Acc)</li>
+                        </ul>
+                        <p class="text-sm text-slate-500 mt-2">※アカウントごとの必要情報も適宜追加してください。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-lg mb-2 text-slate-700">納品日が未定のオーダー (Hold Order)</h3>
+                        <div class="mt-4 space-y-3 text-slate-600">
+                           <p><strong class="font-semibold text-purple-800">RRDの設定:</strong> 「15日」に設定してください。</p>
+                           <p><strong class="font-semibold text-purple-800">オーダーの分割:</strong> なるべく納品日予定日に沿ったオーダーを作成することが理想です。</p>
+                           <p><strong class="font-semibold text-purple-800">振り分け期限:</strong> 出荷希望月の前月10日までに振り分け希望（目標：出荷日の3週間前までに調整完了）</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: その他 -->
+            <section id="section-special" class="content-section">
+                 <div class="p-4 bg-amber-50 border-l-4 border-amber-400 rounded-r-lg mb-6">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">その他</h2>
+                    <p class="text-slate-600">通常とは異なるオーダーや状況変化への対応方法です。クリックして詳細を確認できます。</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-white rounded-lg shadow-sm border border-slate-200">
+                         <button class="accordion-toggle w-full text-left p-6 font-bold text-lg text-slate-700 flex justify-between items-center">
+                            発売日に変更があった場合
+                            <span class="transform transition-transform duration-300">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                             <div class="px-6 pb-6 pt-2 text-slate-600">
+                                 <ol class="list-decimal list-inside space-y-2">
+                                     <li><strong class="font-semibold">即時変更:</strong> SCM（サプライチェーンマネジメント）に影響が出るため、判明後すぐにSO Lineの発売日情報を更新します。</li>
+                                     <li><strong class="font-semibold">情報共有:</strong> Sales Teamへ変更内容を共有します。</li>
+                                     <li><strong class="font-semibold">SO再作成:</strong> 作り直しが必要なオーダーは、AS Teamが対応します。（フォロー分は元の日付への変更が必要な場合があります）</li>
+                                 </ol>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="bg-white rounded-lg shadow-sm border border-slate-200">
+                         <button class="accordion-toggle w-full text-left p-6 font-bold text-lg text-slate-700 flex justify-between items-center">
+                            期中の変更・確認事項
+                            <span class="transform transition-transform duration-300">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                             <div class="px-6 pb-6 pt-2 text-slate-600 space-y-4">
+                                <p><strong class="font-semibold text-gray-700">Quoterズレの可能性:</strong> 変更前に必ずManagerへ確認を取ってください。</p>
+                                <p><strong class="font-semibold text-gray-700">バックオーダーの処理:</strong> 一定期間を過ぎると自動キャンセルされます。出荷を希望する場合は、担当者（Shaoyaさん）からSalesへ共有後、RRDを未来の日付に変更してください。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navItems = document.querySelectorAll('.nav-item');
+            const contentSections = document.querySelectorAll('.content-section');
+            const salesSection = document.getElementById('section-sales');
+
+            function showSection(targetId) {
+                // Hide all sections
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show the target section
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+
+                // Update nav item styles
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.dataset.target === targetId) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    showSection(item.dataset.target);
+                });
+            });
+
+            const accordionToggles = document.querySelectorAll('.accordion-toggle');
+            accordionToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const content = toggle.nextElementSibling;
+                    const icon = toggle.querySelector('span');
+                    
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+            // Initially show the '全員共通' section
+            showSection('section-all');
+        });
+    </script>
+
+</body>
+</html>
+
+
