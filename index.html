@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONJP Order Taking & Managing Guideline</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chosen Palette: Calm Harmony (Light neutrals with a muted blue accent) -->
-    <!-- Application Structure Plan: A role-based tabbed navigation (All, Backstage, Sales, Special Cases) is used to allow users to quickly filter and view only the rules relevant to their role. This task-oriented design reduces cognitive load compared to a linear document. Special cases are handled with an accordion to keep the interface clean. -->
-    <!-- Visualization & Content Choices: Report Info -> Rules & Processes -> Goal -> Organize & Inform -> Viz/Presentation Method -> Styled cards for rules, numbered lists/steps for processes, accordions for special cases. -> Interaction -> Tab clicks to switch views, accordion clicks to expand/collapse details. -> Justification -> No data to visualize, so the focus is on clear information architecture and layout. This is more effective than forcing charts. -> Library/Method -> Vanilla JS for interactions, Tailwind CSS for styling. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, sans-serif;
@@ -58,7 +54,6 @@
         </nav>
 
         <main id="main-content">
-            <!-- Section: 全員共通 -->
             <section id="section-all" class="content-section active">
                  <div class="p-4 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg mb-6">
                     <h2 class="text-2xl font-bold text-slate-700 mb-2">全員共通の基本原則</h2>
@@ -93,7 +88,6 @@
                 </div>
             </section>
 
-            <!-- Section: Backstage向け -->
             <section id="section-backstage" class="content-section">
                 <div class="p-4 bg-green-50 border-l-4 border-green-400 rounded-r-lg mb-6">
                     <h2 class="text-2xl font-bold text-slate-700 mb-2">Backstage向け入力ルール</h2>
@@ -131,7 +125,6 @@
                 </div>
             </section>
 
-            <!-- Section: Sales向け -->
             <section id="section-sales" class="content-section">
                 <div class="p-4 bg-purple-50 border-l-4 border-purple-400 rounded-r-lg mb-6">
                     <h2 class="text-2xl font-bold text-slate-700 mb-2">Sales向け設定・入力ルール</h2>
@@ -148,7 +141,7 @@
                             <div>
                                 <h4 class="font-semibold text-purple-800">② シーズン跨ぎの可能性があるオーダー</h4>
                                 <p class="text-slate-600 pl-4">RRDは<strong class="font-bold text-red-600">「発売日」</strong>に設定します。</p>
-                                <p class="text-sm text-slate-500 mt-2 pl-4">※AS TeamにてCSD（出荷可能日）を延長調整します。生産や価格への影響を避けるため、RRDは変更しないでください。倉庫へは別途、実際の納品日を連絡します。</p>
+                                <p class="text-sm text-slate-500 mt-2 pl-4">※AS TeamにてCSD（出荷可能日）を延長調整します。生産や価格への影響を避けるため、RRDは変更しないでください。実際に出荷する際にSales, Financeと連携してRRDの変更を行います。</p>
                             </div>
                         </div>
                     </div>
@@ -176,7 +169,6 @@
                 </div>
             </section>
 
-            <!-- Section: その他 -->
             <section id="section-special" class="content-section">
                  <div class="p-4 bg-amber-50 border-l-4 border-amber-400 rounded-r-lg mb-6">
                     <h2 class="text-2xl font-bold text-slate-700 mb-2">その他</h2>
@@ -271,6 +263,3 @@
 
 </body>
 </html>
-
-
-
